@@ -3,11 +3,18 @@ Can you get sense of this code file and write the function that will decode the 
 Find the encrypted file here flag_info and code file might be good to analyze and get the flag.
 
 ## SOLTUION 
-- the given file revealed that it combined  XOR encryption with a multiplicative cipher.\
+- the given file revealed that it combined  XOR encryption with a multiplicative cipher with a shared key using the  Diffie-Hellman formula
 - the XOR key takes the message and mixes it up with the word "trudeau" and reversing the plaintext
 - the multiplicative cipher, multiplies each letter by a particular number
+- the shared key using Diffie-Hellman formula with the numbers 
+
+
 
 - so to solve it we must first reverse the multiplication (divide by shared_key × 311) and then reverse the XOR with "trudeau" again
 ```
-cipher.append(((ord(char) * key*311)))
+ cipher.append(((ord(char) * key*311)))
 ```
+refers to encrypted_number = ASCII_value × key × 311 so to decrypt we must ASCII_value = encrypted_number ÷ (key × 311)
+
+- to solve the xor part we must first reverse the plaintext then we can just use the xor operation again which will simply give the original data back
+- 
