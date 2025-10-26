@@ -89,5 +89,25 @@ def dynamic_xor_encrypt(plaintext, text_key):
 ```
 
 - how we can form shared key using Diffie-Hellman formula
+```
+   a = randint(p-10, p)
+    b = randint(g-10, g)
+    print(f"a = {a}")
+    print(f"b = {b}")
+```
+```  
+    # ========== SHARED KEY CALCULATION ==========
+    u = generator(g, a, p)        # ← Part of shared key math
+    v = generator(g, b, p)        # ← Part of shared key math  
+    key = generator(v, a, p)      # ← FINAL SHARED KEY calculated
+    b_key = generator(u, b, p)    # ← Same shared key from other side
+    
+    shared_key = None
+    if key == b_key:
+        shared_key = key          # ← This is the SECRET NUMBER (61 in our case)
+    else:
+        print("Invalid key")
+        return
+```
 
 
