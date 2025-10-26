@@ -127,5 +127,7 @@ https://www.geeksforgeeks.org/dsa/xor-cipher/
 https://www.geeksforgeeks.org/computer-networks/what-is-multiplicative-cipher-in-cryptography/
 https://www.pycryptodome.org/
 
+## 3. MINIRSA 
+Let's decrypt this: ciphertext? Something seems a bit small.
 
 
