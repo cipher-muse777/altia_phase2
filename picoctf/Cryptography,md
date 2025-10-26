@@ -25,4 +25,15 @@ picoCTF{custom_d2cr0pt6d_66778b34}
 semi_cipher = dynamic_xor_encrypt(plain_text, text_key)
 ```
 
+```
+def dynamic_xor_encrypt(plaintext, text_key):
+    cipher_text = ""
+    key_length = len(text_key)
+    for i, char in enumerate(plaintext[::-1]):           **Reverse the string**
+        key_char = text_key[i % key_length]              **Get next key letter "t","r","u","d","e","a","u"**
+        encrypted_char = chr(ord(char) ^ ord(key_char))  **XOR OPERATION**
+        cipher_text += encrypted_char
+    return cipher_text  **Returns XOR-scrambled text**
+```
+
 - how we can form shared key using Diffie-Hellman formula 
