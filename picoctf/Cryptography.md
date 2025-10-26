@@ -112,7 +112,6 @@ def dynamic_xor_encrypt(plaintext, text_key):
 
 - how multiplicative cipher uses this shared key to decode it further
 ```
-# ==================== MULTIPLICATIVE CIPHER FUNCTION ====================
 def encrypt(plaintext, key):
     cipher = []
     for char in plaintext:
@@ -121,5 +120,12 @@ def encrypt(plaintext, key):
         # Each letter gets multiplied by 61 × 311
     return cipher  # ← Returns the final encrypted numbers
 ```
+
+## RESOURCES 
+https://www.geeksforgeeks.org/computer-networks/implementation-diffie-hellman-algorithm/
+https://www.geeksforgeeks.org/dsa/xor-cipher/
+https://www.geeksforgeeks.org/computer-networks/what-is-multiplicative-cipher-in-cryptography/
+https://www.pycryptodome.org/
+
 
 
