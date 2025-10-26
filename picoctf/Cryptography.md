@@ -130,4 +130,36 @@ https://www.pycryptodome.org/
 ## 3. MINIRSA 
 Let's decrypt this: ciphertext? Something seems a bit small.
 
+## SOLUTION 
+- in the given ciphertext the N was too big, e too small and c too small
+- but from the given text, we dudced that ciphertext = plaintext³ N since e is 3 and that N being so big lets us ignore the initial mod N in the formula
+- so we take the length of initial bit and then divide by 3 to find the initial length of our original number and make a number out of that size using 1 <<
+- then if we write a loop to keep on guessing this number by squaring the number and checking how well many times this number fits into our og number using c//(x*x) and each time the guess becomes more and more accurate
+- and then finally we stop guessing number when the next number is worse or equal to our previous guess
+- at last we converted bits to bytes and then finally to plaintext.
+
+  FINAL CODE
+ ```
+c=2205316413931134031074603746928247799030155221252519872650080519263755075355825243327515211479747536697517688468095325517209911688684309894900992899707504087647575997847717180766377832435022794675332132906451858990782325436498952049751141
+x = 1 << ((c.bit_length() + 2)//3)          
+while True:
+    y = (2*x + c//(x*x)) // 3
+    if y >= x:
+        m = x; break
+    x = y
+plaintext = m.to_bytes((m.bit_length()+7)//8, 'big')
+print(plaintext.decode())
+```
+## FLAG 
+picoCTF{n33d_a_lArg3r_e_d0cd6eae}
+
+## CONCEPTS LEARNED 
+- how e often helps us understand how to decode our message
+- how we can find cube roots of bigger numbers
+
+  ## RESOURCES
+  https://crypto.stackexchange.com/questions/6713/low-public-exponent-attack-for-rsa
+  https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types
+  
+
 
