@@ -67,7 +67,7 @@ refers to encrypted_number = ASCII_value × key × 311 so to decrypt we must ASC
   flag = decode_flag(cipher)
   print(f"Decoded flag: {flag}")
 ```
-
+````
 ## FLAG
 picoCTF{custom_d2cr0pt6d_66778b34}
 
@@ -77,7 +77,6 @@ picoCTF{custom_d2cr0pt6d_66778b34}
 ```
 semi_cipher = dynamic_xor_encrypt(plain_text, text_key)
 ```
-
 ```
 def dynamic_xor_encrypt(plaintext, text_key):
     cipher_text = ""
