@@ -110,4 +110,16 @@ def dynamic_xor_encrypt(plaintext, text_key):
         return
 ```
 
+- how multiplicative cipher uses this shared key to decode it further
+```
+# ==================== MULTIPLICATIVE CIPHER FUNCTION ====================
+def encrypt(plaintext, key):
+    cipher = []
+    for char in plaintext:
+        cipher.append(((ord(char) * key * 311)))  # ← MULTIPLICATION OPERATION
+        # key is the shared_key (61)
+        # Each letter gets multiplied by 61 × 311
+    return cipher  # ← Returns the final encrypted numbers
+```
+
 
