@@ -49,9 +49,9 @@ print("Expected pixel data:", expected_size)
 - since that was the fake, we could calculate how many rows of pixel data are available and then rebuild an image using all pixel data
 
   FINAL CODE
+  
   ```
-  ```
-  from PIL import Image
+  ```from PIL import Image
   with open("tunn3l v1s10n.bmp", "rb") as f:
   
     data = f.read()
