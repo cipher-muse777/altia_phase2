@@ -71,6 +71,7 @@ print("Expected pixel data:", expected_size)
   print("Available pixel data:", len(pixel_data))
 
 ```
+
 ```
 
 - so i got this image and therfore the flag
