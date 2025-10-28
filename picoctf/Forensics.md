@@ -39,7 +39,40 @@ pixel_data = pixel_data[:expected_size]
 
 img = Image.frombuffer(mode, (width, height), pixel_data, "raw", mode, row_size, -1)
 img.show()
+
 print("Available pixel data:", len(pixel_data))
 print("Expected pixel data:", expected_size)
 ```
+- i got the image 
+<img width="1667" height="451" alt="Screenshot 2025-10-25 173238" src="https://github.com/user-attachments/assets/929832c1-373c-454f-aa07-4d0ccb11bd9f" />
+- since that was the fake, we could calculate how many rows of pixel data are available and then rebuild an image using all pixel data
+
+  FINAL CODE
+
+  ```
+  from PIL import Image
+  with open("genuienlylosingitnow.bmp", "rb") as f:
+  
+    data = f.read()
+  pixel_data = data[53434:]
+  width = 1134
+  mode = "RGB"
+  row_size = (width * 3 + 3) & ~3
+
+  full_height = len(pixel_data) // row_size
+  full_expected_size = row_size * full_height
+  full_data = pixel_data[:full_expected_size]
+  full_img = Image.frombuffer(mode, (width, full_height), full_data, "raw", mode, row_size, -1)
+  full_img.show()
+
+  print("Full image height:", full_height)
+  print("Full expected pixel data:", full_expected_size)
+  print("Available pixel data:", len(pixel_data))
+
+```
+```
+- so i got this image and therfore the flag
+<img width="895" height="658" alt="Screenshot 2025-10-26 104334" src="https://github.com/user-attachments/assets/405f5323-0200-42cd-82a1-b5b1d5c72d79" />
+
+  
 
