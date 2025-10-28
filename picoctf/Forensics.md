@@ -49,7 +49,7 @@ print("Expected pixel data:", expected_size)
 - since that was the fake, we could calculate how many rows of pixel data are available and then rebuild an image using all pixel data
 
   FINAL CODE
-
+  ```
   ```
   from PIL import Image
   with open("tunn3l v1s10n.bmp", "rb") as f:
@@ -71,7 +71,6 @@ print("Expected pixel data:", expected_size)
   print("Available pixel data:", len(pixel_data))
 
 ```
-
 ```
 
 - so i got this image and therfore the flag
