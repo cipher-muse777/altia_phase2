@@ -43,11 +43,11 @@ img.show()
 print("Available pixel data:", len(pixel_data))
 print("Expected pixel data:", expected_size)
 ```
-```
+
 - i got the image 
 <img width="1667" height="451" alt="Screenshot 2025-10-25 173238" src="https://github.com/user-attachments/assets/929832c1-373c-454f-aa07-4d0ccb11bd9f" />
 - since that was the fake, we could calculate how many rows of pixel data are available and then rebuild an image using all pixel data
-```
+
   FINAL CODE
 
   ```
@@ -72,6 +72,7 @@ print("Expected pixel data:", expected_size)
 
 ```
 ```
+
 - so i got this image and therfore the flag
 <img width="895" height="658" alt="Screenshot 2025-10-26 104334" src="https://github.com/user-attachments/assets/405f5323-0200-42cd-82a1-b5b1d5c72d79" />
 
