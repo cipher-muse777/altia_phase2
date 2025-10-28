@@ -166,6 +166,11 @@ class VaultDoor3 {
 ## FLAG 
 picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_1fb380}
 
+## CONCEPTS LEARNED 
+- to properly read java code
+- to use that knowledge to form python code to decode
+
 ## RESOURCES 
 https://www.geeksforgeeks.org/software-engineering/software-engineering-reverse-engineering/
 https://www.w3schools.com/python/python_ref_string.asp?utm_source=chatgpt.com
+https://www.w3schools.com/java/
