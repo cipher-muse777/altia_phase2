@@ -49,7 +49,8 @@ print("Expected pixel data:", expected_size)
 
   FINAL CODE
   
-  ```from PIL import Image
+  ```
+  from PIL import Image
   with open("tunn3l v1s10n.bmp", "rb") as f:
   
     data = f.read()
@@ -66,7 +67,8 @@ print("Expected pixel data:", expected_size)
 
   print("Full image height:", full_height)
   print("Full expected pixel data:", full_expected_size)
-  print("Available pixel data:", len(pixel_data))```
+  print("Available pixel data:", len(pixel_data))
+  ```
 
 - so i got this image and therfore the flag
 <img width="895" height="658" alt="Screenshot 2025-10-26 104334" src="https://github.com/user-attachments/assets/405f5323-0200-42cd-82a1-b5b1d5c72d79" />
