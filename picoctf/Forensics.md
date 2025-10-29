@@ -1,3 +1,24 @@
+# 1.TRIVIAL FLAG TRANSFER PROTOCOL 
+Figure out how they moved the flag.
+
+## SOLUTION 
+- after opening the file using wireshark (4.4.2 version), i observed the given texts.
+- under the instruction.txt there was capital letters which looked important
+- so putting it into a cipher identifier i understood its a ROT13 cipher
+- after decoding i got the message TFTP DOESNT ENCRYPT OUR TRAFFIC SO WE MUST DISGUISE OUR FLAG TRANSFER. FIGURE OUT A WAY TO HIDE THE FLAG AND I WILL CHECK BACK FOR THE PLAN.
+<img width="1917" height="1131" alt="Screenshot 2025-10-29 162145" src="https://github.com/user-attachments/assets/59352b77-e783-4ccf-aa8f-36ac9e642d75" />
+
+- i scrolled a bit more and found an another string of similar capital letters which then decoded into I USED THE PROGRAM AND HID IT WITH -DUEDILIGENCE. CHECK OUT THE PHOTOS
+  <img width="1919" height="1125" alt="Screenshot 2025-10-29 162203" src="https://github.com/user-attachments/assets/87f6e4f8-b4e0-4abe-8f1c-3e3f6424ac46" />
+
+- to find these photos i went to export objects and then selected tftp and saved them all
+ <img width="1118" height="807" alt="image" src="https://github.com/user-attachments/assets/bba0c6df-bd84-41f0-ae12-f64ab879b678" />
+ 
+
+ - i uploaded each of those images into a steganographic decoder and put the password DUEDILIGENCE and finally the third picture gave the flag
+   <img width="1919" height="325" alt="Screenshot 2025-10-29 162643" src="https://github.com/user-attachments/assets/debee315-2668-457c-8644-451b1099f408" />
+
+
 # 2.tunn3l v1s10n
 We found this file. Recover the flag.
 
