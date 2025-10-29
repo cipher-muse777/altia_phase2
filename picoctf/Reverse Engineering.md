@@ -38,6 +38,16 @@ For what argument does this program print `win` with variables 81, 0 and 3? File
 picoCTF{0000001b}
 
 ## CONCEPTS LEARNED 
+- func refers to start of function
+- sub sp, sp #bytenumber to save space
+- str w0, [[sp, bytenum]] stores it to that sp+place
+- mov w0, 81 refers move the value into wo register
+- ldr w0, [[sp, bytenum]] load the value into that sp+place
+- lsl w0, w1, w0 refers to left shift w1 by w0 and save it to w0
+- sdiv w0, w1, w0 refers to dividing w1/w0 and save it to w0
+- sub w0, w1, w0 refers to subtracting w1-w0 and save it to w0
+- add sp, sp, bytenum refers to clean up the stack used
+- ret refers to return of function
 
 ## RESOURCES
 https://armasm.com/docs/getting-to-hello-world/exiting/
