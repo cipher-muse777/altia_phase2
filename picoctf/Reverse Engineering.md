@@ -1,3 +1,31 @@
+# 1. GDB BABY STEP 1
+Can you figure out what is in the eax register at the end of the main function? Put your answer in the picoCTF flag format: picoCTF{n} where n is the contents of the eax register in the decimal number base. If the answer was 0x11 your flag would be picoCTF{17}.
+Disassemble this.
+
+## SOLUTION 
+- after analysing the given file we understood that its an ELF (Executable and Linkable Format) file (literally the first word)
+- after sudo installing gdb and making the file executable using chmod +x debugger0_a i ran gdb ./debugger0_a
+- then we can input (gdb) info functions
+  <img width="769" height="425" alt="Screenshot 2025-10-29 090731" src="https://github.com/user-attachments/assets/d2ec97e6-1d27-48bc-b3c5-c6ed831875f9" />
+- then executed (gdb) break main
+- then (gdb) run
+- then (gdb) step and then finally gdb (disassemble main) to obtain
+<img width="1624" height="848" alt="Screenshot 2025-10-29 090750" src="https://github.com/user-attachments/assets/6e7eaa1f-05fc-4b71-8d55-a262eced42dd" />
+- then simply converted the 0x86342 of eax into decimal to obtain 549698 which is the flag
+
+  ## FLAG
+  picoCTF{549698}
+
+  ## CONCEPTS LEARNED
+  - how we can execute gdb using gdb ./program name
+  - how break main helps us pause the program in the start and inspect it
+  - how disassemble main shows the tiny step-by-step instructions that make up the program
+ 
+  ## RESOURCES
+  https://cs.brown.edu/courses/cs033/docs/guides/gdb.pdf
+
+  
+
 # 3.VAULT DOOR 3
 This vault uses for-loops and byte arrays. The source code for this vault is here: VaultDoor3.java
 
