@@ -24,7 +24,25 @@ Disassemble this.
   ## RESOURCES
   https://cs.brown.edu/courses/cs033/docs/guides/gdb.pdf
 
-  
+# 2. ARMssembly 1
+For what argument does this program print `win` with variables 81, 0 and 3? File: chall_1.S Flag format: picoCTF{XXXXXXXX} -> (hex, lowercase, no 0x, and 32 bits. ex. 5614267 would be picoCTF{0055aabb})
+
+## SOLUTION 
+- given file takes the input 81,0,3
+- first it does 81>>0 which remains the same and then its divided by 3 which is 27
+- then does 27-x and returns this value
+- since our input needed is also 27 so we win?
+- lmao then 27 in hex is 1b therefore our flag value is {0000001b}
+
+## FLAG
+picoCTF{0000001b}
+
+## CONCEPTS LEARNED 
+
+## RESOURCES
+https://armasm.com/docs/getting-to-hello-world/exiting/
+https://azeria-labs.com/assembly-basics-cheatsheet/
+
 
 # 3.VAULT DOOR 3
 This vault uses for-loops and byte arrays. The source code for this vault is here: VaultDoor3.java
