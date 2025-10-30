@@ -39,7 +39,7 @@ i like logic and i like files, apparently, they have something in common, what s
 ## RESOURCES 
 https://www.youtube.com/watch?v=Ak9R4yxQPhs&t=1s
 
-## BARE METAL ALCHEMIST 
+## 3. BARE METAL ALCHEMIST 
 My friend recommended me this anime but i think i've heard a wrong name.
 
 ## SOLUTION 
