@@ -47,6 +47,7 @@ My friend recommended me this anime but i think i've heard a wrong name.
 - then i gave executable permission using chmod +x ./firmware.elf
 - then after that i opened the file using file ./firmware.elf
 - so it showed 32 bit elf so i sudo apt install libc6:i386 libstdc++6:i386
+- then i sudo apt install simavr simavr -g -m atmega328p ./firmware.elf
   
 <img width="1904" height="98" alt="image" src="https://github.com/user-attachments/assets/affaefac-74bb-4db9-a3d7-b8b53135b99b" />
 
@@ -54,9 +55,40 @@ My friend recommended me this anime but i think i've heard a wrong name.
   
 <img width="1919" height="1059" alt="image" src="https://github.com/user-attachments/assets/7e4b8fdd-c2c0-4353-89f9-a1a90a0332dc" />
 
+- then it was observed that there was xor in it
 
+<img width="1010" height="342" alt="Screenshot 2025-10-30 195645" src="https://github.com/user-attachments/assets/dc12f378-2bc7-49db-936d-fbbdd638d973" />
 
+- so we can use a python code to decrypt it
 
+FINAL CODE 
+```
+encoded_data = [
+    0xf1, 0xe3, 0xe6, 0xe6, 0xf1, 0xe3, 0xde, 0xf1, 0xcd, 0x94, 0xd6, 0xfa,
+    0x94, 0xd6, 0xfa, 0xd6, 0xca, 0xc8, 0x96, 0xfa, 0xd6, 0x94, 0xc8, 0xd5,
+    0xc9, 0x96, 0xfa, 0x91, 0xd7, 0xc1, 0xd0, 0x94, 0xcb, 0xca, 0xfa, 0xc3,
+    0x94, 0xd7, 0xc8, 0xd2, 0x91, 0xd7, 0xc0, 0xd8
+]
 
+# XOR key is 0xA5
+key = 0xA5
 
+decoded = bytes([byte ^ key for byte in encoded_data])
+print("Decoded data:", decoded)
 
+try:
+    decoded_str = decoded.decode('ascii', errors='replace')
+    print("As string:", decoded_str)
+except:
+    print("Could not decode as ASCII")
+    
+```
+
+## FLAG 
+TFCCTF{Th1s_1s_som3_s1mpl3_4rdu1no_f1rmw4re}
+
+## CONCEPTS LEARNED
+-how to use avr reader, simavr etc etc
+
+## RESOURCES
+https://github.com/silragon-ryu/Avr-cheatsheet/blob/main/cheat-sheet.pdf
