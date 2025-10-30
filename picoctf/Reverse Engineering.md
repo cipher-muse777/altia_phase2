@@ -54,7 +54,7 @@ https://armasm.com/docs/getting-to-hello-world/exiting/
 https://azeria-labs.com/assembly-basics-cheatsheet/
 
 
-# 3.VAULT DOOR 3
+# 3. VAULT DOOR 3
 This vault uses for-loops and byte arrays. The source code for this vault is here: VaultDoor3.java
 
 ## SOLUTION 
