@@ -1,4 +1,4 @@
-# 1.TRIVIAL FLAG TRANSFER PROTOCOL 
+# 1. TRIVIAL FLAG TRANSFER PROTOCOL 
 Figure out how they moved the flag.
 
 ## SOLUTION 
@@ -30,7 +30,7 @@ https://futureboy.us/stegano/decinput.html
 https://www.dcode.fr/cipher-identifier
 
 
-# 2.tunn3l v1s10n
+# 2. tunn3l v1s10n
 We found this file. Recover the flag.
 
 ## SOLUTION 
@@ -119,7 +119,7 @@ https://en.wikipedia.org/wiki/BMP_file_format
 https://stackoverflow.com/questions/10439104/reading-bmp-files-in-python
 https://www.youtube.com/watch?v=VBY_UEiw9F8
 
-# 3.m00nwalk
+# 3. m00nwalk
 Decode this message from the moon.
 
 ## SOLUTION 
