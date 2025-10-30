@@ -47,9 +47,13 @@ My friend recommended me this anime but i think i've heard a wrong name.
 - then i gave executable permission using chmod +x ./firmware.elf
 - then after that i opened the file using file ./firmware.elf
 - so it showed 32 bit elf so i sudo apt install libc6:i386 libstdc++6:i386
+  
 <img width="1904" height="98" alt="image" src="https://github.com/user-attachments/assets/affaefac-74bb-4db9-a3d7-b8b53135b99b" />
+
 - then i disassembled using avr-objdump -d ./firmware.elf
+  
 <img width="1919" height="1059" alt="image" src="https://github.com/user-attachments/assets/7e4b8fdd-c2c0-4353-89f9-a1a90a0332dc" />
+
 
 
 
