@@ -3,6 +3,83 @@ Can you abuse the oracle?
 An attacker was able to intercept communications between a bank and a fintech company. They managed to get the message (ciphertext) and the password that was used to encrypt the message.
 Additional details will be available after launching your challenge instance.
 
+## SOLUTION
+- rsa oracle wasnt giving the password directly so i realised we'll have to outsmart the oracle
+- i first encrypted 1,2,3,4 and obtained their ciphertext and used it to find N
+
+FINAL CODE
+```
+import math
+
+e = 65537
+data = [
+        (49, 4374671741411819653095065203638363839705760144524191633605358134684143978321095859047126585649272872908765432040943055399247499744070371810470682366100689),
+        (50, 4707619883686427763240856106433203231481313994680729548861877810439954027216515481620077982254465432294427487895036699854948548980054737181231034760249505),
+        (51, 1998517197048216725617978890728205902760633363770165103499700157925986170022682604311921651991344892635565706489644418147980643978563559991322776155635395),
+        (52, 3993239489061277327472930109138093827255646312769901312414509207541733524779884801267968848884701166599834406248783129646083261476137481855550108336137485),
+    ]
+
+def getN(stuff, e):
+        a, b = stuff[0]
+        n_val = b - pow(a, e)
+        for x, y in stuff[1:]:
+            tmp = y - pow(x, e)
+            n_val = math.gcd(tmp, n_val)
+        return abs(n_val)
+
+print(getN(data, e))
+```
+- i got the N as 5507598452356422225755194020880876452588463543445995226287547479009566151786764261801368190219042978883834809435145954028371516656752643743433517325277971
+- then applied that in c' = c * 2^e mod N
+
+FINAL CODE
+```
+  n = int("5507598452356422225755194020880876452588463543445995226287547479009566151786764261801368190219042978883834809435145954028371516656752643743433517325277971")
+e = 65537
+C_pass = int(3567252736412634555920569398403787395170577668834666742330267390011828943495692402033350307843527370186546259265692029368644049938630024394169760506488003)   
+s = 2
+cprime = (C_pass * pow(s, e, n)) % n
+print(cprime)
+```
+- then when i put it into oracle for decryption it gave me 66666272c6
+- then when i ran it in a python  i got m (utf-8): 3319c
+
+ FINAL CODE 
+```
+n = 5507598452356422225755194020880876452588463543445995226287547479009566151786764261801368190219042978883834809435145954028371516656752643743433517325277971
+
+p2_hex = "66666272c6"
+p2 = int(p2_hex, 16)  
+
+
+s = 2
+inv_s = pow(s, -1, n)
+
+m = (p2 * inv_s) % n
+
+k = (n.bit_length() + 7) // 8
+m_bytes = m.to_bytes(k, "big")
+
+
+
+print("m (utf-8):", m_bytes.rstrip(b'\x00').decode('utf-8'))
+```
+- then i opened openssl enc -aes-256-cbc -d -in secret.enc using 3319c as password
+- hence got the flag
+
+<img width="1269" height="198" alt="Screenshot 2025-10-31 141853" src="https://github.com/user-attachments/assets/ebafe845-4900-490f-98b0-1659ff3f86a6" />
+
+## FLAG 
+picoCTF{su((3ss_(r@ck1ng_r3@_3319c817}
+
+## CONCEPTS LEARNED 
+- how RSA Encryption Formula is c ≡ m^e (mod n)
+- how openssl helps us decrypt stuff
+- how we can manipulate the oracle usind rsa multiplicative cipher
+
+## RESOURCES
+https://github.com/RsaCtfTool/RsaCtfTool
+https://cryptohack.org/challenges/rsa/
 
 
 # 2. CUSTOM ENCRYPTION 
