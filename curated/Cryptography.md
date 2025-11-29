@@ -31,10 +31,11 @@ with open('out.txt','w') as f:
 nite{r3s1du35_f4ll1ng_1nt0_pl4c3}
 
 ## SOLUTION 
-- we are given a very large prime no p
+- we are given a very large prime no p which ends with 79 and when we divide 79 by 4 we get remiander 3 hence  ```p = 3 (mod 4)```
 - we have a get_x() function that finds a random number x between 2 and p-1 that is quadratic residue modulo p
-- we also have a get_y(x) function that returns -x%p which creates our quadratic non residue number
-- now since our flag is converted to binary and for each binary bit if b=0, output is (a * get_x()) % p where get_x() returns a random quadratic residue modulo p AND if b=1, Output (a * get_y()) % p where get_y() returns -get_x() % p, guaranteed to be a quadratic non-residue since p ≡ 3 (mod 4)
+- we also have a get_y(x) function that returns -x%p which creates our quadratic non residue number because for primes where p ≡ 3 (mod 4), -1 is always a QNR, so multiplying any QR by -1 yields a QNR 
+- now since our flag is converted to binary and for each binary bit if b=0, output is ```(a * get_x()) % p``` where get_x() returns a random quadratic residue modulo p AND if b=1, Output ```(a * get_y()) % p``` where get_y() returns ```-get_x() % p```, guaranteed to be a quadratic non-residue since ```p = 3 (mod 4)```
+- our a value is fixed but unknown so we have to try the two possible mappings between quadratic residuosity and bit values
 - now for each value c from out.txt file if we can compute the legendre value and then try both mappings where qr(legendre==1) = 0 and qnr(legendre==p-1) = 1 AND where qr(legendre==1) = 1 and qnr(legendre==p-1) = 0
 - converting the bit sequence to bytes will give us the flag
 
@@ -85,8 +86,13 @@ print("Mapping 2:", try2[:50])
 ```
 
 ## CONCEPTS LEARNED 
-- quadratic residue (QR) is a number that has a square root in modular world {r² ≡ x (mod p)}
-- quadratic non residue (QNR) is a number that does not have a square root in modular world { no r such that r² ≡ x (mod p)}
+- quadratic residue (QR) is a number that has a square root in modular world {r^2 = x (mod p)}
+- quadratic non residue (QNR) is a number that does not have a square root in modular world { no r such that r^2 = x (mod p)}
+- this works because of Euler's Criterion for the Legendre symbol
 - and we check this by ```legendre = pow(x, (p-1)//2, p) == 1``` if this is true then its a QR
 - ```legendre = pow(x, (p-1)//2, p) == p-1``` if this is true then its a QNR
+- multiplicative property of qr:
+  QR * QR = QR
+  QR * QNR = QNR
+  QNR * QNR = QR
 
