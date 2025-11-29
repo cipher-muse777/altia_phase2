@@ -96,3 +96,8 @@ print("Mapping 2:", try2[:50])
   QR * QNR = QNR
   QNR * QNR = QR
 
+## RESOURCES
+- https://en.wikipedia.org/wiki/Quadratic_residue
+- https://brilliant.org/wiki/legendre-symbol/
+- https://www.geeksforgeeks.org/dsa/modular-exponentiation-power-in-modular-arithmetic/
+- https://www.pycryptodome.org/
