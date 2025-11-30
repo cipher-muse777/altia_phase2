@@ -191,5 +191,56 @@ if __name__ == "__main__":
 - https://gist.github.com/molangning/213147ce4677f15da84d68c24839d710
 - https://realpython.com/read-write-files-python/#reading-and-writing-binary-files
 
+# 4. WILLY'S CHOCOLATE EXPERIENCE 
+from Crypto.Util.number import *
+
+//oompa loompa magic
+def imagination_lab(m:int) -> int:
+    p = 396430433566694153228963024068183195900644000015629930982017434859080008533624204265038366113052353086248115602503012179807206251960510130759852727353283868788493357310003786807
+    return (pow(13, m, p) + pow(37, m, p)) % p
+
+enchantment = b"nite{REDACTED}" # capture the enchantment
+ticket = bytes_to_long(enchantment)
+
+enchanted_candy = imagination_lab(ticket) # your ticket is now being made into a candy
+candy_bag = []
+
+//oompa loompa at work
+for i in range(ticket):
+    candy_bag.append(imagination_lab(i))
+
+//find the ticket at the end
+candy_bag.append(enchanted_candy)
+
+//someone stole a few candies
+leftover = candy_bag[-2:]
+
+//can you get back your ticket?
+print(leftover)
+
+//
+[124499652441066069321544812234595327614165778598236394255418354986873240978090206863399216810942232360879573073405796848165530765886142184827326462551698684564407582751560255175,
+208271276785711416565270003674719254652567820785459096303084135643866107254120926647956533028404502637100461134874329585833364948354858925270600245218260166855547105655294503224]
+
+## FLAG 
+nite{g0ld3n_t1ck3t_t0_gl4sg0w}
+
+## SOLUTION 
+- in the given python challenge code function returns ```13^m + 37^m (mod p)```
+- then the flag bytes were converted into an integer, called ticket which is used as our exponent m
+- then it creates a candy bag sequence f(0), f(1), f(2), ..., f(ticket-1), where ```f(i) = 13^i + 37^i mod p```
+- then the encrypted flag value f(ticket) is appended to the candy bag where the last two values are ```candy_bag[-2] = f(ticket-1)``` and ```candy_bag[-1] = f(ticket)```
+- the attacker only recieves ```leftover = [f(ticket-1), f(ticket)]``` which we can assume to be A and B
+- now if we assume ticket to be n and expand A and B we get ```A = f(n-1) = 13^(n-1) + 37^(n-1)``` ```B = f(n)   = 13^n     + 37^n``` 
+- now if we rewrite B as ```B = 13 * 13^(n-1) + 37 * 37^(n-1)```
+- now adding variables to make our equations smaller ```x = 13^(n-1)``` and ```y = 37^(n-1)```
+- we get ```x = (37A - B) / 24  (mod p)``` and ```y = (B - 13A) / 24  (mod p)```
+- further simplification ```x = 13^(n-1) mod p```
+- now by finding logarithm using ```n - 1 = discrete_log(base=13, value=x, modulus=p)``` we get ```ticket = n = (n - 1) + 1```
+- now we can obtain the flag by just converting it to back to bytes 
+
+
+
+
 
 
