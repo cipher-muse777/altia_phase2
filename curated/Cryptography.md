@@ -101,3 +101,40 @@ print("Mapping 2:", try2[:50])
 - https://brilliant.org/wiki/legendre-symbol/
 - https://www.geeksforgeeks.org/dsa/modular-exponentiation-power-in-modular-arithmetic/
 - https://www.pycryptodome.org/
+
+# 3. QUIXORTE 
+import os
+
+def rotate(b,i):
+    return ((b>>i%8)|(b<<(8-i%8))) & 0xFF
+
+def encrypt(flag,key):
+    enc = bytearray(rotate(x,i) for i,x in enumerate(flag))
+  
+  for i in range(len(enc) - len(key) + 1):
+        for j in range(len(key)):
+            enc[i+j] ^= key[j]
+      return enc
+    
+key = os.urandom(8)
+
+with open('quote.png','rb') as f:
+    flag = f.read()
+
+enc = encrypt(flag,key)
+
+with open('quote.png.enc','wb') as f:
+    f.write(enc)
+
+## FLAG 
+nite{to_b3_X0R_n0t_t0_b3333}
+
+## SOLUTION 
+- when we open the given png file in a hex editor we can see that the first 8 bytes is different from the usual 89 50 4E 47 0D 0A 1A 0A for png files
+
+<img width="1910" height="926" alt="Screenshot 2025-11-30 125905" src="https://github.com/user-attachments/assets/ef466379-1df8-4e6a-afa1-e2569c779d68" />
+
+- the given python program also explains how each byte is rotated by the number of bits equal its index%8 ie, 0 byte is 0,7 byte is 7, 8 byte is 0 and 9 byte is 1 this is what scrambles the png header
+- there is also an 8-byte random key ```(from os.urandom(8))``` is used to XOR the data in a sliding window so each byte gets xored with key[0] till key[7] and these windows overlap therefore modifying each byte multiple times
+- 
+
