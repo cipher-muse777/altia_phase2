@@ -49,7 +49,6 @@ def long_to_bytes(n):
 
 p = 9129026491768303016811207218323770273047638648509577266210613478726929333106121387323539916009107476349319902011390210650434835260358014251332047605739279
 
-# Load output
 with open('out.txt') as f:
     out = eval(f.readline().strip())
 
@@ -57,7 +56,6 @@ def legendre_symbol(c, p):
     ls = pow(c, (p-1)//2, p)
     return 1 if ls == 1 else -1
 
-# Compute Legendre symbols for all outputs
 legs = [legendre_symbol(c, p) for c in out]
 
 def bits_to_bytes(bits):
@@ -65,7 +63,7 @@ def bits_to_bytes(bits):
     n = 0
     for bit in bits:
         n = (n << 1) | bit
-    # Convert to bytes
+   
     return long_to_bytes(n)
 
 # Mapping 1: QR=0, QNR=1
@@ -79,7 +77,7 @@ try2 = bits_to_bytes(bits2)
 print("Mapping 1 (QR=0):", try1)
 print("Mapping 2 (QR=1):", try2)
 
-# Also try with the first few bits to see if we can spot the flag pattern
+
 print("\nFirst 50 chars of each:")
 print("Mapping 1:", try1[:50])
 print("Mapping 2:", try2[:50])
@@ -145,7 +143,6 @@ nite{to_b3_X0R_n0t_t0_b3333}
 
 ## FINAL CODE 
 ```
-decrypt_png.py
 from pathlib import Path
 
 KEY = bytes([0xEC, 0x95, 0xE0, 0x22, 0x0A, 0x3D, 0x5A, 0xB7])
@@ -153,12 +150,11 @@ KEY = bytes([0xEC, 0x95, 0xE0, 0x22, 0x0A, 0x3D, 0x5A, 0xB7])
 def decrypt(enc_bytes: bytes, key: bytes) -> bytes:
     enc = bytearray(enc_bytes)
     n = len(key)
-    # reverse the sliding XOR by running the same XOR windows in reverse order
+   
     for i in range(len(enc) - n, -1, -1):
         for j in range(n):
             enc[i + j] ^= key[j]
 
-    # reverse the rotation: encryption rotated right by (i % 8) -> rotate left by (i % 8)
     def rotl(b, i):
         s = i % 8
         return (((b << s) & 0xFF) | (b >> (8 - s))) & 0xFF
