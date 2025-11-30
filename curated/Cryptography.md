@@ -136,5 +136,64 @@ nite{to_b3_X0R_n0t_t0_b3333}
 
 - the given python program also explains how each byte is rotated by the number of bits equal its index%8 ie, 0 byte is 0,7 byte is 7, 8 byte is 0 and 9 byte is 1 this is what scrambles the png header
 - there is also an 8-byte random key ```(from os.urandom(8))``` is used to XOR the data in a sliding window so each byte gets xored with key[0] till key[7] and these windows overlap therefore modifying each byte multiple times
-- 
+- to decrypt we must undo the sliding XOR by removing the windows and undo the per-byte rotation
+- so we recover the 8-byte key using the first 8 encrypted bytes and the known png header and then convert the entire encryptected file to bytearray to make it mutable
+- now we must reverse the sliding xor windows from the last window to 0 in the reverse order as the windows overlap
+- to reverse the rotation, we do a rotate-right operation which undoes left rotation and this is implemented using shifts and masks on 8-bit bytes
+- now that we have computed the plaintext we convert it back to immutable bytes and store it into the vairable plain 
+- then we create a new file and write our plaintext bytes to this file
+
+## FINAL CODE 
+```
+decrypt_png.py
+from pathlib import Path
+
+KEY = bytes([0xEC, 0x95, 0xE0, 0x22, 0x0A, 0x3D, 0x5A, 0xB7])
+
+def decrypt(enc_bytes: bytes, key: bytes) -> bytes:
+    enc = bytearray(enc_bytes)
+    n = len(key)
+    # reverse the sliding XOR by running the same XOR windows in reverse order
+    for i in range(len(enc) - n, -1, -1):
+        for j in range(n):
+            enc[i + j] ^= key[j]
+
+    # reverse the rotation: encryption rotated right by (i % 8) -> rotate left by (i % 8)
+    def rotl(b, i):
+        s = i % 8
+        return (((b << s) & 0xFF) | (b >> (8 - s))) & 0xFF
+
+    plain = bytearray(rotl(enc[i], i) for i in range(len(enc)))
+    return bytes(plain)
+
+def main():
+    inp = Path("quote.png.enc")
+    out = Path("quote.png")
+    if not inp.exists():
+        print("quote.png.enc not found in current directory.")
+        return
+
+    enc = inp.read_bytes()
+    plain = decrypt(enc, KEY)
+    out.write_bytes(plain)
+    print(f"Wrote decrypted file: {out} ({len(plain)} bytes)")
+
+if __name__ == "__main__":
+    main()
+```
+- executing this gave me the image with the flag
+
+<img width="250" height="250" alt="quote" src="https://github.com/user-attachments/assets/4fd2d04d-bc9b-4e6a-8ac9-47c94382e9b3" />
+
+## CONCEPTS LEARNED 
+- how we can change immutable bytes (their values cant be changed) to mutabable by converting it to bytearray
+- xor is its own inverse ```(data ^ key) ^ key = data```
+- in sliding window xor because windows overlap, each byte gets xored multiple times, so decryption must reverse them in reverse order
+
+## RESOURCES 
+- https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types
+- https://gist.github.com/molangning/213147ce4677f15da84d68c24839d710
+- https://realpython.com/read-write-files-python/#reading-and-writing-binary-files
+
+
 
