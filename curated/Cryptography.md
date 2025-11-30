@@ -237,7 +237,47 @@ nite{g0ld3n_t1ck3t_t0_gl4sg0w}
 - we get ```x = (37A - B) / 24  (mod p)``` and ```y = (B - 13A) / 24  (mod p)```
 - further simplification ```x = 13^(n-1) mod p```
 - now by finding logarithm using ```n - 1 = discrete_log(base=13, value=x, modulus=p)``` we get ```ticket = n = (n - 1) + 1```
-- now we can obtain the flag by just converting it to back to bytes 
+- now we can obtain the flag by just converting it to back to bytes
+
+## FINAL CODE 
+```
+from sympy.ntheory import discrete_log
+
+p = 396430433566694153228963024068183195900644000015629930982017434859080008533624204265038366113052353086248115602503012179807206251960510130759852727353283868788493357310003786807
+
+leftover = [
+    124499652441066069321544812234595327614165778598236394255418354986873240978090206863399216810942232360879573073405796848165530765886142184827326462551698684564407582751560255175,
+    208271276785711416565270003674719254652567820785459096303084135643866107254120926647956533028404502637100461134874329585833364948354858925270600245218260166855547105655294503224
+]
+
+A = leftover[0]
+B = leftover[1]
+
+
+inv24 = pow(24, -1, p)
+
+x = (37*A - B) * inv24 % p
+
+n_minus_1 = discrete_log(p, x, 13)   # solves 13^k = x mod p
+ticket = n_minus_1 + 1
+
+print("Ticket (integer):", ticket)
+try:
+    print("Ticket (bytes):", ticket.to_bytes((ticket.bit_length()+7)//8, 'big'))
+except:
+    print("Ticket could not convert to bytes")
+```
+
+## CONCEPTS LEARNED 
+- in modular arithmetic, division isnt directly defined, because we work modulo a prime p so, ```x = (37A - B) / 24  (mod p)``` here we cannot divide by 24 directly modulo p
+- so we computed the modular inverse of 24 modulo p ```inv24 = 24^(-1) mod p``` and then multiplied it to our x equation
+- discrete logarithm is the opposite of modular exponentiation
+- given, ```x = 13^(n-1) mod p``` using discrete log we can find ```n-1 = discrete_log(p, x, 13)```
+
+## RESOURCES 
+- https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-inverses?utm_source=chatgpt.com
+- https://cp-algorithms.com/algebra/discrete-log.html?utm_source=chatgpt.com
+
 
 
 
