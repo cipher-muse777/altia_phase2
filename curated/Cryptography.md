@@ -100,6 +100,141 @@ print("Mapping 2:", try2[:50])
 - https://www.geeksforgeeks.org/dsa/modular-exponentiation-power-in-modular-arithmetic/
 - https://www.pycryptodome.org/
 
+# 2. RESIDUE REFINERY 
+```
+import os
+import numpy as np
+from secret import FLAG
+
+flag = FLAG.split(b'nite{')[1][:-1]
+assert len(flag)%2 == 0
+
+class Num:
+    def __init__(self, n: list[int]):
+        self.n = np.array(n)
+        self.p = 257
+        self.f = [1, 0, -3] # reduction polynomial
+
+    def __add__(self, other):
+        return (self.n + other.n) % self.p
+
+    def __mul__(self, other):
+        prod = [0] * 5
+        for i in range(2):
+            for j in range(2):
+                prod[i + j] += self.n[i] * other.n[j]
+        return Num([(prod[0] + 3*prod[2]) % self.p, prod[1] % self.p])
+
+    def to_bytes(self):
+        return bytes(self.n.tolist())[::-1]
+
+ks = os.urandom(2)
+ct = bytearray(len(flag))
+
+print(f"{flag[:2].hex() = }")
+for i in range(0, len(flag), 2):
+    ct[i:i+2] = (Num(tuple(ks)) * Num(tuple(flag[i:i+2]))).to_bytes()
+
+print(ct.hex())
+
+# flag[:2].hex() = '316d'
+# 9813d3838178abd17836f3e2e752a99d5cd3fba291205f90c1d0a78b6eca
+```
+
+## FLAG 
+nite{1mp0r7_m0dul3?_1_4M_7h3_m0dul3}
+
+## SOLUTION 
+- in the given code we take the flag without nite{} and then split it into 2-byte chunks ```len(flag)%2==0```
+- then uses the custom math system (Num class) to multiply the secret key ks with each chunk
+- for each 2 byte chunks we create Num([m0,m1]) and Num([k0,k1]) ie the one with secret key and we multiply them ```(c0,c1) = k0*m0+3*k1*m1, k0*m1+k1*m0)mod 257```
+- then this is outputed as bytes([c1,c0])
+- given plaintext first two bytes ```m0=0*31=49``` and ```m1=0*6d=109```
+- given ciphertext first two bytes are ```c1=0*98=152``` and ```c0=0*13=19```
+- putting these values into our og equation and simplifying we get ```Eq1: 49*k0 + 70*k1 = 19``` and ```Eq2: 109*k0 + 49*k1 = 152```
+- now after solving for k0 and k1 we imput them into ```c0 = 60*m0 + 18*m1 mod 257``` and ```c1 = 6*m0 + 60*m1 mod 257``` to reverse the encryption and find m0 and m1 we get the decryption formula ```m1 = 34*(c0 - 10*c1) mod 257``` and ```m0 = 43*(c1 - 60*m1) mod 257```
+- now we apply this to every 2-byte block in the ciphertext to obtain the flag
+
+ ## FINAL CODE
+ ```
+
+def mod_inv(a, p=257):
+    
+    return pow(a, p-2, p)
+
+
+inv_49 = mod_inv(49)
+
+
+inv_70 = mod_inv(70) 
+k1 = (163 * inv_70) % 257  
+k0 = (142 - 185 * k1) % 257  
+
+print(f"k0 = {k0}, k1 = {k1}")  
+
+
+def decrypt_block(c0, c1):
+    """Decrypt a 2-byte block using derived formulas"""
+    m1 = (34 * (c0 - 10 * c1)) % 257
+    m0 = (43 * (c1 - 60 * m1)) % 257
+    return bytes([m0, m1])
+
+
+ct_hex = "9813d3838178abd17836f3e2e752a99d5cd3fba291205f90c1d0a78b6eca"
+ct_bytes = bytes.fromhex(ct_hex)
+
+flag = bytearray()
+for i in range(0, len(ct_bytes), 2):
+
+    c1 = ct_bytes[i]
+    c0 = ct_bytes[i+1]
+    
+    plain_block = decrypt_block(c0, c1)
+    flag.extend(plain_block)
+
+print(f"\nDecrypted flag: nite{{{bytes(flag).decode()}}}")
+def mod_inv(a, p=257):
+    
+    return pow(a, p-2, p)
+
+
+inv_49 = mod_inv(49)
+
+
+inv_70 = mod_inv(70) 
+k1 = (163 * inv_70) % 257  
+k0 = (142 - 185 * k1) % 257  
+
+print(f"k0 = {k0}, k1 = {k1}")  
+
+
+def decrypt_block(c0, c1):
+    """Decrypt a 2-byte block using derived formulas"""
+    m1 = (34 * (c0 - 10 * c1)) % 257
+    m0 = (43 * (c1 - 60 * m1)) % 257
+    return bytes([m0, m1])
+
+
+ct_hex = "9813d3838178abd17836f3e2e752a99d5cd3fba291205f90c1d0a78b6eca"
+ct_bytes = bytes.fromhex(ct_hex)
+
+flag = bytearray()
+for i in range(0, len(ct_bytes), 2):
+
+    c1 = ct_bytes[i]
+    c0 = ct_bytes[i+1]
+    
+    plain_block = decrypt_block(c0, c1)
+    flag.extend(plain_block)
+
+print(f"\nDecrypted flag: nite{{{bytes(flag).decode()}}}")
+```
+
+## CONCEPTS LEARNED
+
+
+
+
 # 3. QUIXORTE 
 import os
 
