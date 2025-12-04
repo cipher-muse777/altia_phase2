@@ -174,7 +174,6 @@ print(f"k0 = {k0}, k1 = {k1}")
 
 
 def decrypt_block(c0, c1):
-    """Decrypt a 2-byte block using derived formulas"""
     m1 = (34 * (c0 - 10 * c1)) % 257
     m0 = (43 * (c1 - 60 * m1)) % 257
     return bytes([m0, m1])
@@ -209,7 +208,6 @@ print(f"k0 = {k0}, k1 = {k1}")
 
 
 def decrypt_block(c0, c1):
-    """Decrypt a 2-byte block using derived formulas"""
     m1 = (34 * (c0 - 10 * c1)) % 257
     m0 = (43 * (c1 - 60 * m1)) % 257
     return bytes([m0, m1])
@@ -231,8 +229,17 @@ print(f"\nDecrypted flag: nite{{{bytes(flag).decode()}}}")
 ```
 
 ## CONCEPTS LEARNED
+- all operations happen mod 257 (a prime), allowing every non-zero number to have a modular inverse
+- for prime p, a^-1 = a^(p-2) mod p (Fermat's Little Theorem)
+- given one plaintext block and its ciphertext, we can set up two linear equations in the unknown key variables
+- The encryption is a linear map, ```c = e*m(mod 257)```
+- To decrypt, we must compute the matrix inverse, ```m = e^-1*c (mod 257)```
 
-
+## RESOURCES 
+- https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+- https://cp-algorithms.com/algebra/module-inverse.html
+- https://www.geeksforgeeks.org/dsa/adjoint-inverse-matrix/
+- https://brilliant.org/wiki/finite-fields/
 
 
 # 3. QUIXORTE 
