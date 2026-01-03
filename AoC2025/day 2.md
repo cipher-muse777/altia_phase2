@@ -8,8 +8,6 @@
 
 <img width="952" height="925" alt="Screenshot 2025-12-30 134139" src="https://github.com/user-attachments/assets/d4263af5-bd5f-4b9f-bcbc-3d0944d19e7f" />
 
-<img width="953" height="828" alt="Screenshot 2026-01-02 203744" src="https://github.com/user-attachments/assets/2f0ccfb9-ee52-4732-ba76-d59e469c59a5" />
-
 
 
 
