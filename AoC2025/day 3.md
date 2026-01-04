@@ -24,15 +24,21 @@
 
 <img width="899" height="731" alt="Screenshot 2026-01-04 134631" src="https://github.com/user-attachments/assets/05f58aac-29e2-44c6-a291-a7e23693a3d0" />
 
-
-
-<img width="898" height="362" alt="Screenshot 2026-01-04 134705" src="https://github.com/user-attachments/assets/cc4baf8c-4cca-49da-9e51-5bf1bd1de951" />
+- now just to confirm our doubt we could use the query ```sourcetype=web_traffic user_agent!=*Mozilla* user_agent!=*Chrome* user_agent!=*Safari* user_agent!=*Firefox* | stats count by client_ip | sort -count | head 5```
 
 <img width="1919" height="637" alt="Screenshot 2026-01-04 134739" src="https://github.com/user-attachments/assets/cf226428-e918-443c-8a73-5d1cc22778e6" />
 
+- since we now know the suspicious ip we could trace their attack by searching for the initial probing of exposed configuration files using ```sourcetype=web_traffic client_ip="<REDACTED>" AND path IN ("/.env", "/*phpinfo*", "/.git*") | table _time, path, user_agent, status```
+- this confirmed that they used low-level tools like curl,wget which was met with 404/403/401 status codes
+
 <img width="1919" height="1053" alt="Screenshot 2026-01-04 134824" src="https://github.com/user-attachments/assets/e765dbdb-cba6-43c6-87e9-3dd55c09f3d0" />
 
+- now we can search for common path traversal and open redirect vulnerabilities using the query ```sourcetype=web_traffic client_ip="<REDACTED>" AND path="*..*" OR path="*redirect*"```
+- since the output shows the resources our atatcker is trying to access 
+
 <img width="1919" height="1058" alt="Screenshot 2026-01-04 135013" src="https://github.com/user-attachments/assets/2c34c6cd-753e-45b7-8d48-7949de38217f" />
+
+- now to get the count of the resources requested by the attacker and filter out the paths that contain ../../ or the term redirect or ..\/..\/ we can use ```sourcetype=web_traffic client_ip="<REDACTED>" AND path="*..\/..\/*" OR path="*redirect*" | stats count by path```
 
 <img width="1907" height="590" alt="Screenshot 2026-01-04 135100" src="https://github.com/user-attachments/assets/d0261f3a-393e-4427-a878-242f997818e2" />
 
