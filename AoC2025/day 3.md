@@ -1,9 +1,13 @@
 ## SOLUTION 
+- i typed in ```index=main``` in the search bar to show all ingested logs and changed the time frame to all time
+
 <img width="1919" height="1061" alt="Screenshot 2026-01-04 133946" src="https://github.com/user-attachments/assets/0081118c-891c-4f1f-bd32-d8d76478b4e4" />
+
+- now when we observe in the sourcetype we can see that web traffix is 91.613% and firewall log is 8.387% 
 
 <img width="905" height="403" alt="Screenshot 2026-01-04 134008" src="https://github.com/user-attachments/assets/04166a5c-61ec-4f40-b480-6dbbec3aef18" />
 
-<img width="1919" height="1066" alt="Screenshot 2026-01-04 134104" src="https://github.com/user-attachments/assets/41418077-f7f0-4bd4-aa4d-ce49f9eca685" />
+- we can search the total event count by inputting ```index=main sourcetype=web_traffic | timechart span=1d count```
 
 <img width="1919" height="972" alt="Screenshot 2026-01-04 134512" src="https://github.com/user-attachments/assets/46851dcc-1cf6-405c-9468-c5bb3c68f49e" />
 
