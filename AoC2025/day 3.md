@@ -7,15 +7,24 @@
 
 <img width="905" height="403" alt="Screenshot 2026-01-04 134008" src="https://github.com/user-attachments/assets/04166a5c-61ec-4f40-b480-6dbbec3aef18" />
 
-- we can search the total event count by inputting ```index=main sourcetype=web_traffic | timechart span=1d count```
+- we can search the total event count in descending order by inputting ```index=main sourcetype=web_traffic | timechart span=1d count | sort by count | reverse```
+- now we got the day with maximum number of events 2025-10-12
 
 <img width="1919" height="972" alt="Screenshot 2026-01-04 134512" src="https://github.com/user-attachments/assets/46851dcc-1cf6-405c-9468-c5bb3c68f49e" />
 
+- now if we click user_agent we can see that we are getting a large number of suspicious user agents like Havij whose count is 993
+
 <img width="903" height="890" alt="Screenshot 2026-01-04 134557" src="https://github.com/user-attachments/assets/bd5aa8d4-fa00-4ae1-b8fa-5cde2e077314" />
+
+- next if we select client_ip we can see that one specific ip ```198.51.100.55``` has an insane amount of counts 
 
 <img width="895" height="718" alt="Screenshot 2026-01-04 134613" src="https://github.com/user-attachments/assets/8931b565-f94d-43d8-8c88-8e1975e53fa0" />
 
+- now if we click of path we can see they have tried to access sensitive information 658 times 
+
 <img width="899" height="731" alt="Screenshot 2026-01-04 134631" src="https://github.com/user-attachments/assets/05f58aac-29e2-44c6-a291-a7e23693a3d0" />
+
+
 
 <img width="898" height="362" alt="Screenshot 2026-01-04 134705" src="https://github.com/user-attachments/assets/cc4baf8c-4cca-49da-9e51-5bf1bd1de951" />
 
